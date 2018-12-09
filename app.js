@@ -20,7 +20,7 @@ const User= require('./models/user');
 //Database Setup
 //mongoose.connect("mongodb://localhost:27017/smartify_main", { useNewUrlParser: true });  
 
-mongoose.connect("mongodb://admin:password1@ds163480.mlab.com:63480/code-on", { useNewUrlParser: true });  
+mongoose.connect("mongodb://admin:password1@ds145981.mlab.com:45981/code-on", { useNewUrlParser: true });  
 const db = mongoose.connection;
 
 //Routes Setup
@@ -70,10 +70,8 @@ app.use(expressValidator({
 	}
 }));
 
-  
-
 app.use(function(req,res,next){
-	res.locals.user = req.user || null;
+	res.locals.user = req.user;
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");
 	next();

@@ -18,13 +18,10 @@ router.post('/register',(req,res)=>{
     var username = req.body.username;
     var firstname = req.body.firstname;
     var lastname= req.body.lastname;
-    var email = req.body.email;
     var password = req.body.password;
     var country= req.body.country;
     var dob = req.body.dob;
-    var gender= req.body.gender;
     var phone1= req.body.phone1;
-    var phone2= req.body.phone2;
 
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
     var errors = req.validationErrors();
@@ -39,13 +36,9 @@ router.post('/register',(req,res)=>{
         User.findOne({ username: { 
             "$regex": "^" + username + "\\b", "$options": "i"
             }}, function (err, user) {
-                    User.findOne({ email: { 
-                        "$regex": "^" + email + "\\b", "$options": "i"
-                    }}, function (err, mail) {
-                            if (user || mail) {
+                            if (user) {
                                 const temp = {
                                     user: user,
-                                    mail: mail
                                 }
                                 res.render('register', {temp});
                             }
@@ -53,14 +46,11 @@ router.post('/register',(req,res)=>{
                                 var newUser = new User({
                                     firstname: firstname,
                                     lastname: lastname,
-                                    email: email,
                                     username: username,
                                     password: password,
                                     country: country,
                                     dob: dob,
-                                    gender: gender,
-                                    phone1: phone1,
-                                    phone2: phone2,
+                                    phone1: phone1
                         });
                     User.createUser(newUser, function (err, user) {
                         if (err) throw err;
@@ -70,7 +60,6 @@ router.post('/register',(req,res)=>{
                     res.redirect('/users/login');
                     }
                 });
-        });
     }
 });
 
