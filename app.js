@@ -18,7 +18,9 @@ const port = process.env.PORT || 3000;
 const User= require('./models/user');
 
 //Database Setup
-mongoose.connect("mongodb://localhost:27017/smartify_main", { useNewUrlParser: true });  
+//mongoose.connect("mongodb://localhost:27017/smartify_main", { useNewUrlParser: true });  
+
+mongoose.connect("mongodb://admin:password1@ds163480.mlab.com:63480/code-on", { useNewUrlParser: true });  
 const db = mongoose.connection;
 
 //Routes Setup
